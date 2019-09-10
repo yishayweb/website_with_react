@@ -1,7 +1,11 @@
 const express = require('express');
 const path = require('path');
+require('./db/mongoose')
+const userRouter = require('./routers/user')
 
 const app = express();
+app.use(express.json())
+app.use(userRouter)
 
 //const mongodb = require('mongodb');
 //const MongoClient = mongodb.MongoClient;
@@ -27,7 +31,7 @@ const app = express();
 });*/
 
 app.get('/hello', (req, res) => {
-  res.send("hello the");
+  res.send("hello the to");
 });
 
 app.use(express.static(path.join(__dirname, 'react-server/build')));

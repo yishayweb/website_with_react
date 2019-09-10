@@ -7,7 +7,13 @@ class App extends Component {
   state = { hi: ""}
 
   onButtonClick() {
-    var request = axios.get('/hello');
+    /*var request = axios.get('/hello');
+    request.then(({data, status}) => {
+      if (status === 200) {
+        console.log(data);
+      }
+    })*/
+    var request = axios.post('/users', {name: 'yishayf', email: 'bxnbcxnbnxnbn', password: 'gbgbrrrrrrrrrr', age: 32}, {headers: {'Content-Type': 'application/json'}});
     request.then(({data, status}) => {
       if (status === 200) {
         console.log(data);
@@ -29,7 +35,7 @@ class App extends Component {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Learn React with second app
+            Learn React with second appxmcnjxn
           </a>
           <button onClick={() => this.onButtonClick()}>Click the {this.state.hi}</button>
         </header>
