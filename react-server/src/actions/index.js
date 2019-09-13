@@ -16,3 +16,19 @@ export const signup = (user_obj, history) => async dispatch => {
     console.log(e);
   }
 }
+
+export const isLoggedIn = (callback) => async dispatch => {
+  console.log(localStorage.getItem('user_token'));
+  var headers = {headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('user_token')}}
+
+  var request = axios.get('/users/me', headers);
+  request.then(({data, status}) => {
+    if (status === 200) {
+      console.log(data);
+      callback(true);
+    }
+  }).catch((error) => {
+    console.log(error);
+    callback(false);
+  });
+}

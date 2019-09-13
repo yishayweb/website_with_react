@@ -7,49 +7,16 @@ const app = express();
 app.use(express.json())
 app.use(userRouter)
 
-//const mongodb = require('mongodb');
-//const MongoClient = mongodb.MongoClient;
-
-//const connectionUrl = 'mongodb://127.0.0.1:27017';
-//const databaseName = 'task-manager';
-
-/*MongoClient.connect(connectionUrl, {useNewUrlParser: true }, (error, client) => {
-  if (error) {
-    return console.log(error);
-  }
-
-  const db = client.db(databaseName);
-
-  db.collection('users').insertOne({
-    name: 'b',
-    age: 26
-  });
-});*/
-
-/*app.get('/', (req, res) => {
-  res.send("hello");
-});*/
-
-app.get('/hello', (req, res) => {
-  res.send("hello the to");
-});
-
-app.use(express.static(path.join(__dirname, 'react-server/build')));
-
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
-
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'productionLocal') {
   // Express will serve up production assets
   // like our main.js file, or main.css file!
-  app.use(express.static('client/build'));
+  app.use(express.static('react-server/build'));
 
   // Express will serve up the index.html file
   // if it doesn't recognize the route
   const path = require('path');
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'react-server', 'build', 'index.html'));
   });
 }
 
