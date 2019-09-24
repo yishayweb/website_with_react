@@ -8,7 +8,7 @@ import {
   Redirect
 } from 'react-router-dom'
 import Landing from '../Landing/Landing';
-import LoginForm from '../LoginForm/LoginForm';
+import EntryPoint from './EntryPoint';
 
 class App extends Component {
 
@@ -32,7 +32,7 @@ class App extends Component {
       <div className="App">
         <BrowserRouter>
           <div>
-            <Route exact path="/" component={LoginForm} />
+            <Route exact path="/" component={EntryPoint} />
             <Route exact path="/home" component={Landing} />
           </div>
         </BrowserRouter>

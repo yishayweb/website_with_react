@@ -14,7 +14,7 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
   </div>
 )
 
-class LoginForm extends Component {
+class SignupForm extends Component {
 
   onSubmit(values) {
     console.log("submitted");
@@ -27,6 +27,11 @@ class LoginForm extends Component {
     return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <Field
+          name="name"
+          label="Name"
+          type="text"
+          component={renderField} />
+        <Field
           name="email"
           label="Email"
           type="text"
@@ -36,9 +41,14 @@ class LoginForm extends Component {
           label="Password"
           type="text"
           component={renderField} />
+        <Field
+          name="age"
+          label="Age"
+          type="text"
+          component={renderField} />
         <div>
-          <button type="submit">Submit</button>
-          <button type="button" onClick={() => this.props.switchForm()}>Signup</button>
+          <button type="submit" >Submit</button>
+          <button type="button" onClick={() => this.props.switchForm()}>Login</button>
         </div>
       </form>
     )
@@ -50,6 +60,6 @@ function mapStateToProps() {
 }
 
 export default reduxForm({
-  form: 'loginForm',
+  form: 'signupForm',
   destroyOnUnmount: false,
-})(connect(mapStateToProps, { signup })(withRouter(LoginForm)));
+})(connect(mapStateToProps, { signup })(withRouter(SignupForm)));
