@@ -3,6 +3,7 @@ const express = require('express')
 const sharp = require('sharp')*/
 const User = require('../models/user')
 const auth = require('../middleware/auth')
+const { sendEmailSendGrid } = require('../emails/accounts')
 const router = new express.Router()
 
 // creating a user
@@ -79,6 +80,15 @@ router.delete('/users/me', auth, async (req, res) => {
     try {
         await req.user.remove()
         res.send(req.user)
+    } catch (e) {
+        res.status(500).send()
+    }
+})
+
+router.post('/users/sendEmail', auth, async (req, res) => {
+    try {
+        await sendEmailSendGrid()
+        res.send('email sent')
     } catch (e) {
         res.status(500).send()
     }

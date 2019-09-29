@@ -46,6 +46,19 @@ class Landing extends Component {
     });
   }
 
+  sendEmail() {
+    var headers = {headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('user_token')}}
+
+    var request = axios.post('/users/sendEmail', {}, headers);
+    request.then(({data, status}) => {
+      if (status === 200) {
+        console.log(data);
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
   render() {
     console.log(this.props.user);
     if (this.state.isLoggedIn === "unknown") {
@@ -58,6 +71,7 @@ class Landing extends Component {
     return (
       <div className="landing-main-div">
         Landing
+        <button onClick={() => this.sendEmail()}>Send Email</button>
         <button onClick={() => this.logOut()}>Log Out</button>
       </div>
     );

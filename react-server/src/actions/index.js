@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const SIGNUP = "signup";
+export const LOGIN = "login";
 
 export const signup = (user_obj, history) => async dispatch => {
   try {
@@ -8,6 +9,21 @@ export const signup = (user_obj, history) => async dispatch => {
     console.log(res);
     if (res.status === 201) {
       dispatch({ type: SIGNUP, payload: res.data.token });
+      history.push('/home');
+      localStorage.setItem('user_token', res.data.token);
+    }
+  }
+  catch(e) {
+    console.log(e);
+  }
+}
+
+export const login = (user_obj, history) => async dispatch => {
+  try {
+    const res = await axios.post('/users/login', user_obj, { headers: { 'Content-Type': 'application/json' } });
+    console.log(res);
+    if (res.status === 200) {
+      dispatch({ type: LOGIN, payload: res.data.token });
       history.push('/home');
       localStorage.setItem('user_token', res.data.token);
     }

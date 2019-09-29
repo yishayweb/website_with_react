@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { signup } from '../../actions'
+import { login } from '../../actions'
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div>
@@ -19,7 +19,7 @@ class LoginForm extends Component {
   onSubmit(values) {
     console.log("submitted");
     console.log(values);
-    this.props.signup(values, this.props.history);
+    this.props.login(values, this.props.history);
   }
 
   render() {
@@ -52,4 +52,4 @@ function mapStateToProps() {
 export default reduxForm({
   form: 'loginForm',
   destroyOnUnmount: false,
-})(connect(mapStateToProps, { signup })(withRouter(LoginForm)));
+})(connect(mapStateToProps, { login })(withRouter(LoginForm)));
