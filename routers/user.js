@@ -4,6 +4,7 @@ const sharp = require('sharp')*/
 const User = require('../models/user')
 const auth = require('../middleware/auth')
 const { sendEmailSendGrid } = require('../emails/accounts')
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const router = new express.Router()
 
 // creating a user
@@ -93,6 +94,20 @@ router.post('/users/sendEmail', auth, async (req, res) => {
         res.status(500).send()
     }
 })
+
+router.post('/users/stripe', auth, async (req, res) => {
+  const charge = await stripe.charges.create({
+    amount: 100,
+    currency: 'usd',
+    description: '$1 for 5 credits',
+    source: req.body.id
+  });
+
+  req.user.credits += 5;
+  const user = await req.user.save();
+
+  res.send(user);
+});
 
 /*const upload = multer({
     limits: {

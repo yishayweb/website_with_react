@@ -6,6 +6,7 @@ import {
   Redirect
 } from 'react-router-dom'
 import { isLoggedIn } from '../../actions';
+import Payments from '../Payments/Payments';
 import './landing.css';
 
 
@@ -73,6 +74,7 @@ class Landing extends Component {
         Landing
         <button onClick={() => this.sendEmail()}>Send Email</button>
         <button onClick={() => this.logOut()}>Log Out</button>
+        <Payments />
       </div>
     );
   }

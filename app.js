@@ -1,12 +1,14 @@
 var sslRedirect = require('heroku-ssl-redirect');
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
 require('./db/mongoose')
 const userRouter = require('./routers/user')
 
 const app = express();
 app.use(express.json())
 app.use(sslRedirect());
+app.use(bodyParser.json());
 app.use(userRouter)
 
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'productionLocal') {

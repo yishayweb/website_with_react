@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const SIGNUP = "signup";
 export const LOGIN = "login";
+export const UPDATE_USER_CREDIT = "update_user_credit";
 
 export const signup = (user_obj, history) => async dispatch => {
   try {
@@ -48,3 +49,10 @@ export const isLoggedIn = (callback) => async dispatch => {
     callback(false);
   });
 }
+
+export const handleToken = token => async dispatch => {
+  var headers = {headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('user_token')}}
+  const res = await axios.post('/users/stripe', token, headers);
+
+  dispatch({ type: UPDATE_USER_CREDIT, payload: res.data });
+};
